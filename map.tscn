@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://xeofuubmskrr"]
+
+[ext_resource type="Material" uid="uid://iclctana4bak" path="res://materials/prototype_material.tres" id="2_6xs8d"]
+[ext_resource type="PackedScene" uid="uid://dng74ygq0wdxa" path="res://entities/player_character_1.tscn" id="2_uprx8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rex7s"]
+
+[sub_resource type="Sky" id="Sky_ly88s"]
+sky_material = SubResource("ProceduralSkyMaterial_rex7s")
+
+[sub_resource type="Environment" id="Environment_uablm"]
+background_mode = 2
+sky = SubResource("Sky_ly88s")
+
+[node name="Map" type="Node3D"]
+
+[node name="Character1" parent="." instance=ExtResource("2_uprx8")]
+
+[node name="Terrain" type="Node3D" parent="."]
+
+[node name="Ground" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+use_collision = true
+collision_layer = 8
+collision_mask = 0
+size = Vector3(150, 2, 150)
+material = ExtResource("2_6xs8d")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 0)
+use_collision = true
+collision_layer = 8
+collision_mask = 0
+size = Vector3(1, 2, 3)
+material = ExtResource("2_6xs8d")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.08199, 1, -5.15634)
+use_collision = true
+collision_layer = 8
+collision_mask = 0
+size = Vector3(1, 2, 3)
+material = ExtResource("2_6xs8d")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.918009, 0, -3.15634)
+use_collision = true
+collision_layer = 8
+collision_mask = 0
+size = Vector3(3, 2, 3)
+material = ExtResource("2_6xs8d")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+use_collision = true
+collision_layer = 8
+collision_mask = 0
+size = Vector3(1, 1.83997, 1.62488)
+material = ExtResource("2_6xs8d")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_uablm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.29344, -0.719709, 0.629215, 0, 0.65819, 0.752852, -0.955978, -0.220917, 0.193139, 0, 0, 0)
+shadow_enabled = true
