@@ -15,6 +15,10 @@ run/main_scene="res://map.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/mode=2
+
 [filesystem]
 
 import/fbx/enabled=false
@@ -60,6 +64,7 @@ crouch={
 [physics]
 
 common/physics_ticks_per_second=144
+3d/physics_engine="JoltPhysics3D"
 
 [rendering]
 

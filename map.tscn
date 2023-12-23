@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://xeofuubmskrr"]
+[gd_scene load_steps=7 format=3 uid="uid://xeofuubmskrr"]
 
 [ext_resource type="Material" uid="uid://iclctana4bak" path="res://materials/prototype_material.tres" id="2_6xs8d"]
-[ext_resource type="PackedScene" uid="uid://dng74ygq0wdxa" path="res://entities/player_character_1.tscn" id="2_uprx8"]
+[ext_resource type="PackedScene" uid="uid://clqri155eq18w" path="res://entities/player_character_2.tscn" id="2_uprx8"]
+[ext_resource type="PackedScene" uid="uid://cxmxch45ykvgm" path="res://entities/enemy_1.tscn" id="3_yehq5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rex7s"]
 
@@ -14,7 +15,12 @@ sky = SubResource("Sky_ly88s")
 
 [node name="Map" type="Node3D"]
 
-[node name="Character1" parent="." instance=ExtResource("2_uprx8")]
+[node name="Character2" parent="." instance=ExtResource("2_uprx8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.189998, 0)
+ground_acceleration_speed = 16.0
+air_acceleration_speed = 2.0
+jump_velocity = 5.0
+friction = 5.0
 
 [node name="Terrain" type="Node3D" parent="."]
 
@@ -66,3 +72,9 @@ environment = SubResource("Environment_uablm")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(0.29344, -0.719709, 0.629215, 0, 0.65819, 0.752852, -0.955978, -0.220917, 0.193139, 0, 0, 0)
 shadow_enabled = true
+
+[node name="Enemy1" parent="." instance=ExtResource("3_yehq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_yehq5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
