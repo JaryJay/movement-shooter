@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5h6ttqnvx3xn"]
+[gd_scene load_steps=10 format=3 uid="uid://b5h6ttqnvx3xn"]
 
 [ext_resource type="Script" path="res://guns/gun_1.gd" id="1_nhqba"]
 [ext_resource type="PackedScene" uid="uid://ba2hh541rxw1g" path="res://assets/kenney_blaster-kit/Models/blasterA.glb" id="1_t2j4s"]
@@ -7,9 +7,71 @@
 [ext_resource type="Script" path="res://guns/state.gd" id="5_qopi3"]
 [ext_resource type="Script" path="res://guns/shooting_state.gd" id="5_qqekk"]
 
+[sub_resource type="Animation" id="Animation_i0ffg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blasterA2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blasterA2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vk6ut"]
+resource_name = "shoot"
+length = 0.15
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blasterA2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.015, 0.15),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.174533, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blasterA2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.015, 0.15),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.193314), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_byjvs"]
+_data = {
+"RESET": SubResource("Animation_i0ffg"),
+"shoot": SubResource("Animation_vk6ut")
+}
+
 [node name="Gun1" type="Node3D"]
 script = ExtResource("1_nhqba")
-fire_cooldown_time = 0.1
+fire_cooldown_time = 0.2
 ammo_capacity = 10
 
 [node name="blasterA2" parent="." instance=ExtResource("1_t2j4s")]
@@ -32,3 +94,8 @@ default_state = NodePath("../DefaultState")
 
 [node name="ADSFiringState" type="Node" parent="StateMachine"]
 script = ExtResource("5_qopi3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_byjvs")
+}

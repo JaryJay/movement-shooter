@@ -71,7 +71,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("CylinderShape3D_tspmu")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44076, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
@@ -79,7 +79,7 @@ current = true
 [node name="Node3D" type="Node3D" parent="Head"]
 
 [node name="Gun1" parent="Head/Node3D" instance=ExtResource("3_m6ies")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.401063, -0.35868, -0.728319)
+transform = Transform3D(-0.5, 0, 4.37114e-08, 0, 0.5, 0, -4.37114e-08, 0, -0.5, 0.338978, -0.244792, -0.504757)
 locally_controlled = true
 
 [node name="LurchTimer" type="Timer" parent="."]

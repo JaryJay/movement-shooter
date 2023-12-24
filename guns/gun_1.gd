@@ -9,6 +9,7 @@ enum BulletType { HITSCAN, PROJECTILE }
 @export var bullet_type: BulletType
 
 @onready var state_machine: = $StateMachine
+@onready var animation_player: = $AnimationPlayer
 
 var trigger_held: = false
 @onready var ammo: = ammo_capacity
@@ -22,6 +23,7 @@ func _physics_process(delta: float) -> void:
 
 func shoot_bullet() -> void:
 	if bullet_type == BulletType.HITSCAN:
+		animation_player.play("shoot")
 		print("Shoot")
 	else:
 		pass

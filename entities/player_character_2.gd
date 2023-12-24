@@ -22,6 +22,7 @@ var direction: = Vector3.ZERO
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	$Model/AnimationPlayer.play("run-forwards")
 
 func _process(_delta: float) -> void:
 	var raw_input: = Input.get_vector("left", "right", "forwards", "backwards")
@@ -77,7 +78,7 @@ func handle_lurch() -> void:
 	var new_horizontal_velocity: = horizontal_velocity + direction * lurch_velocity
 	var new_h_vel_magnitude: = new_horizontal_velocity.length()
 	if new_h_vel_magnitude > lurch_velocity and new_h_vel_magnitude > h_vel_magnitude:
-		var adjusted_magnitude: = maxf(lurch_velocity, h_vel_magnitude * 0.9)
+		var adjusted_magnitude: = maxf(lurch_velocity, h_vel_magnitude * 0.98)
 		new_horizontal_velocity = new_horizontal_velocity.normalized() * adjusted_magnitude
 	velocity = new_horizontal_velocity + Vector3(0, vertical_velocity, 0)
 
