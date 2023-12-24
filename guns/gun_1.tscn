@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5h6ttqnvx3xn"]
+
+[ext_resource type="Script" path="res://guns/gun_1.gd" id="1_nhqba"]
+[ext_resource type="PackedScene" uid="uid://ba2hh541rxw1g" path="res://assets/kenney_blaster-kit/Models/blasterA.glb" id="1_t2j4s"]
+[ext_resource type="Script" path="res://guns/default_state.gd" id="3_0bcul"]
+[ext_resource type="Script" path="res://guns/state_machine.gd" id="3_yjoh2"]
+[ext_resource type="Script" path="res://guns/state.gd" id="5_qopi3"]
+[ext_resource type="Script" path="res://guns/shooting_state.gd" id="5_qqekk"]
+
+[node name="Gun1" type="Node3D"]
+script = ExtResource("1_nhqba")
+fire_cooldown_time = 0.1
+ammo_capacity = 10
+
+[node name="blasterA2" parent="." instance=ExtResource("1_t2j4s")]
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("gun", "default_state")]
+script = ExtResource("3_yjoh2")
+gun = NodePath("..")
+default_state = NodePath("DefaultState")
+
+[node name="DefaultState" type="Node" parent="StateMachine" node_paths=PackedStringArray("shooting_state")]
+script = ExtResource("3_0bcul")
+shooting_state = NodePath("../ShootingState")
+
+[node name="ReloadingState" type="Node" parent="StateMachine"]
+script = ExtResource("5_qopi3")
+
+[node name="ShootingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("default_state")]
+script = ExtResource("5_qqekk")
+default_state = NodePath("../DefaultState")
+
+[node name="ADSFiringState" type="Node" parent="StateMachine"]
+script = ExtResource("5_qopi3")
