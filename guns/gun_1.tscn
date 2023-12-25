@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5h6ttqnvx3xn"]
+[gd_scene load_steps=11 format=3 uid="uid://b5h6ttqnvx3xn"]
 
 [ext_resource type="Script" path="res://guns/gun_1.gd" id="1_nhqba"]
 [ext_resource type="PackedScene" uid="uid://ba2hh541rxw1g" path="res://assets/kenney_blaster-kit/Models/blasterA.glb" id="1_t2j4s"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://guns/state_machine.gd" id="3_yjoh2"]
 [ext_resource type="Script" path="res://guns/state.gd" id="5_qopi3"]
 [ext_resource type="Script" path="res://guns/shooting_state.gd" id="5_qqekk"]
+[ext_resource type="Texture2D" uid="uid://cugp8usmy6b6b" path="res://assets/textures/crosshairs/crosshair102.png" id="7_t8pm1"]
 
 [sub_resource type="Animation" id="Animation_i0ffg"]
 length = 0.001
@@ -99,3 +100,18 @@ script = ExtResource("5_qopi3")
 libraries = {
 "": SubResource("AnimationLibrary_byjvs")
 }
+
+[node name="Crosshair" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_t8pm1")
+expand_mode = 1
