@@ -1,0 +1,28 @@
+[gd_resource type="AnimationNodeBlendSpace2D" load_steps=6 format=3 uid="uid://b5wv434iheyx1"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ymy8v"]
+animation = &"run-forwards"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mvdth"]
+animation = &"run-right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2il3i"]
+animation = &"run-backwards"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gjo8o"]
+animation = &"run-left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7654k"]
+animation = &"unarmed-stand-idle"
+
+[resource]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ymy8v")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_mvdth")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_2il3i")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_gjo8o")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_7654k")
+blend_point_4/pos = Vector2(0, 0)

@@ -83,7 +83,7 @@ transform = Transform3D(-0.5, 0, 4.37114e-08, 0, 0.5, 0, -4.37114e-08, 0, -0.5, 
 locally_controlled = true
 
 [node name="LurchTimer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.5
 one_shot = true
 
 [connection signal="timeout" from="LurchTimer" to="." method="_on_lurch_timer_timeout"]
