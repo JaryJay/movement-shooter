@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bchuaob4dosoj" path="res://assets/character_2.blend" id="1_24ijj"]
 [ext_resource type="Script" path="res://entities/player_character_2.gd" id="1_c3god"]
-[ext_resource type="PackedScene" uid="uid://b5h6ttqnvx3xn" path="res://guns/gun_1.tscn" id="3_m6ies"]
+[ext_resource type="PackedScene" uid="uid://b5h6ttqnvx3xn" path="res://guns/gun_1.tscn" id="3_ymcra"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_tspmu"]
 height = 1.7
@@ -78,8 +78,8 @@ current = true
 
 [node name="Node3D" type="Node3D" parent="Head"]
 
-[node name="Gun1" parent="Head/Node3D" instance=ExtResource("3_m6ies")]
-transform = Transform3D(-0.5, 0, 4.37114e-08, 0, 0.5, 0, -4.37114e-08, 0, -0.5, 0.338978, -0.244792, -0.504757)
+[node name="Gun1" parent="Head/Node3D" instance=ExtResource("3_ymcra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45592, -0.370564, -0.660804)
 locally_controlled = true
 
 [node name="LurchTimer" type="Timer" parent="."]

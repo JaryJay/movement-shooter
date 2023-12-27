@@ -1,0 +1,129 @@
+[gd_scene load_steps=20 format=3 uid="uid://dgce0m5m40wyy"]
+
+[ext_resource type="Script" path="res://guns/gun_1_muzzle_flash.gd" id="1_els7t"]
+[ext_resource type="Texture2D" uid="uid://rbidommjdmhd" path="res://assets/textures/muzzles/star_06.png" id="1_w4rx8"]
+[ext_resource type="Texture2D" uid="uid://dw0p5wbsnuw6g" path="res://assets/textures/muzzles/muzzle_01.png" id="2_c0xok"]
+
+[sub_resource type="Gradient" id="Gradient_lfywi"]
+offsets = PackedFloat32Array(0, 0.0659722, 0.541667, 1)
+colors = PackedColorArray(0.907823, 0.638538, 1.15514e-06, 1, 0.995426, 0.713664, 0.418106, 1, 1, 0.851423, 0.780035, 1, 0.255413, 0.130195, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o6yll"]
+gradient = SubResource("Gradient_lfywi")
+
+[sub_resource type="Curve" id="Curve_0kwe3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0696203, 0.828086), 4.59894, 4.59894, 0, 0, Vector2(0.278481, 0.819899), -2.43473, -2.43473, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_qetm1"]
+curve = SubResource("Curve_0kwe3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dav58"]
+direction = Vector3(0, 0, -1)
+spread = 1.0
+initial_velocity_max = 0.1
+gravity = Vector3(0, 0, 0)
+scale_min = 0.7
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_qetm1")
+color_ramp = SubResource("GradientTexture1D_o6yll")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1lr8m"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_w4rx8")
+
+[sub_resource type="QuadMesh" id="QuadMesh_t6pm7"]
+material = SubResource("StandardMaterial3D_1lr8m")
+
+[sub_resource type="Gradient" id="Gradient_ocmdm"]
+offsets = PackedFloat32Array(0, 0.0659722, 0.541667, 1)
+colors = PackedColorArray(0.907823, 0.638538, 1.15514e-06, 1, 0.995426, 0.713664, 0.418106, 1, 1, 0.851423, 0.780035, 1, 0.255413, 0.130195, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gnnu2"]
+gradient = SubResource("Gradient_ocmdm")
+
+[sub_resource type="Curve" id="Curve_d45bo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0158228, 0.418766), 12.9345, 12.9345, 0, 0, Vector2(0.291139, 0.541562), -0.970087, -0.970087, 0, 0, Vector2(1, 0.246851), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_46c0r"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0158228, 0.418766), 12.9345, 12.9345, 0, 0, Vector2(0.268987, 0.623426), -1.0685, -1.0685, 0, 0, Vector2(1, 0.320529), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_66lr8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_2ubna"]
+curve_x = SubResource("Curve_d45bo")
+curve_y = SubResource("Curve_46c0r")
+curve_z = SubResource("Curve_66lr8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h587l"]
+particle_flag_align_y = true
+direction = Vector3(0, 0, -1)
+spread = 1.0
+initial_velocity_max = 0.1
+gravity = Vector3(0, 0, 0)
+scale_min = 0.7
+scale_max = 0.8
+scale_curve = SubResource("CurveXYZTexture_2ubna")
+color_ramp = SubResource("GradientTexture1D_gnnu2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kek70"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_c0xok")
+
+[sub_resource type="QuadMesh" id="QuadMesh_paljb"]
+material = SubResource("StandardMaterial3D_kek70")
+center_offset = Vector3(0, 0.4, 0)
+
+[node name="Gun1MuzzleFlash" type="Node3D"]
+script = ExtResource("1_els7t")
+
+[node name="MuzzleFlashXY" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+amount = 1
+lifetime = 0.12
+one_shot = true
+visibility_aabb = AABB(-1.00001, -1.0009, -1.07788, 2.00135, 2.00091, 2.07789)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_dav58")
+draw_pass_1 = SubResource("QuadMesh_t6pm7")
+
+[node name="MuzzleFlashXZ" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 1
+lifetime = 0.12
+one_shot = true
+visibility_aabb = AABB(-1.0001, -1.00001, -1.00799, 2.00011, 2.00005, 2.008)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_h587l")
+draw_pass_1 = SubResource("QuadMesh_paljb")
+
+[node name="MuzzleFlashYZ" type="GPUParticles3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+amount = 1
+lifetime = 0.12
+one_shot = true
+visibility_aabb = AABB(-1.00005, -1.0001, -1.0061, 2.00006, 2.00011, 2.00611)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_h587l")
+draw_pass_1 = SubResource("QuadMesh_paljb")
+
+[node name="FreeTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="FreeTimer" to="." method="queue_free"]

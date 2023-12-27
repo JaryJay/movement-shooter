@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://dwtjn2d1ngw5k"]
+
+[ext_resource type="Texture2D" uid="uid://bqc8wjqr56gwp" path="res://assets/textures/vfx/circle_05.png" id="1_bm7pp"]
+
+[sub_resource type="Gradient" id="Gradient_p4om1"]
+offsets = PackedFloat32Array(0, 0.375, 0.753472, 0.951389)
+colors = PackedColorArray(0.999563, 0.784365, 0.63643, 1, 1, 0.681338, 0.421696, 1, 0.823999, 0.467751, 5.77569e-07, 1, 0.00419029, 0.00120387, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ye74x"]
+gradient = SubResource("Gradient_p4om1")
+
+[sub_resource type="Curve" id="Curve_ojabl"]
+_data = [Vector2(0, 0.459698), 0.0, 2.83725, 0, 0, Vector2(0.462025, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.70711, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hsw82"]
+curve = SubResource("Curve_ojabl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m5472"]
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 3.0
+initial_velocity_max = 4.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_hsw82")
+color_ramp = SubResource("GradientTexture1D_ye74x")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h37w4"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_bm7pp")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_56gk3"]
+material = SubResource("StandardMaterial3D_h37w4")
+size = Vector2(0.1, 0.1)
+
+[node name="Sparks" type="GPUParticles3D"]
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.95
+process_material = SubResource("ParticleProcessMaterial_m5472")
+draw_pass_1 = SubResource("QuadMesh_56gk3")

@@ -12,6 +12,13 @@ sky_material = SubResource("ProceduralSkyMaterial_rex7s")
 [sub_resource type="Environment" id="Environment_uablm"]
 background_mode = 2
 sky = SubResource("Sky_ly88s")
+glow_enabled = true
+glow_levels/6 = 0.13
+glow_levels/7 = 0.25
+glow_intensity = 0.1
+glow_blend_mode = 0
+glow_hdr_threshold = 0.05
+glow_hdr_scale = 1.4
 
 [node name="Map" type="Node3D"]
 
