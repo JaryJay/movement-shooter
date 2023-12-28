@@ -14,3 +14,6 @@ func update(_delta: float, _frame: int) -> void:
 	if ticks == 1000:
 		gun.shoot_bullet()
 		ticks = randi_range(0, 20)
+
+func _on_health_component_health_depleted(source):
+	queue_free()

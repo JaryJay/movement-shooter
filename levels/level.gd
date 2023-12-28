@@ -65,6 +65,8 @@ func rollback_and_resimulate(delta: float) -> void:
 		## Update everything
 		for e: Node in get_tree().get_nodes_in_group("entities"):
 			e.update(delta, f)
+		for e: Node in get_tree().get_nodes_in_group("bullets"):
+			e.update(delta, f)
 		#for e: Building in get_tree().get_nodes_in_group("buildings"):
 			#e.update(f)
 		#for e: Squad in get_tree().get_nodes_in_group("squads"):

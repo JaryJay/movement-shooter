@@ -1,9 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxdbon8jsalx1"]
+[gd_scene load_steps=9 format=3 uid="uid://cxdbon8jsalx1"]
 
 [ext_resource type="PackedScene" uid="uid://b4nbyjnuwl36x" path="res://assets/kenney_blaster-kit/Models/foamBulletA-low.glb" id="1_jx0lx"]
 [ext_resource type="Script" path="res://guns/bullet_1.gd" id="1_lfl7q"]
+[ext_resource type="Texture2D" uid="uid://d03jchp81rgm6" path="res://assets/textures/vfx/smoke_01.png" id="3_wxfnb"]
 
-[node name="Bullet1" type="Node3D"]
+[sub_resource type="Gradient" id="Gradient_bi5r2"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pcxv4"]
+gradient = SubResource("Gradient_bi5r2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wxnma"]
+angle_min = -180.0
+angle_max = 180.0
+gravity = Vector3(0, -0.1, 0)
+color_ramp = SubResource("GradientTexture1D_pcxv4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kprj"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_wxfnb")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_lu4b3"]
+material = SubResource("StandardMaterial3D_6kprj")
+size = Vector2(0.1, 0.1)
+
+[node name="Bullet1" type="Node3D" groups=["bullets"]]
 script = ExtResource("1_lfl7q")
 
 [node name="foamBulletA-low2" parent="." instance=ExtResource("1_jx0lx")]
@@ -12,5 +40,19 @@ transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25)
 target_position = Vector3(0, 0, -0.27)
-collision_mask = 10
+collision_mask = 40
 collide_with_areas = true
+
+[node name="MaxLifetime" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0349969)
+lifetime = 0.1
+preprocess = 0.1
+explosiveness = 0.37
+process_material = SubResource("ParticleProcessMaterial_wxnma")
+draw_pass_1 = SubResource("QuadMesh_lu4b3")
+
+[connection signal="timeout" from="MaxLifetime" to="." method="queue_free"]

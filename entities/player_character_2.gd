@@ -30,7 +30,6 @@ func _process(_delta: float) -> void:
 	direction = transform.basis * local_direction
 
 func update(delta: float, frame: int) -> void:
-	print("updating on frame %d" % frame)
 	var acceleration: = direction
 	if not is_on_floor():
 		acceleration *= air_acceleration_speed

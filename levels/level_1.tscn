@@ -5,4 +5,6 @@
 
 [node name="Level1" instance=ExtResource("1_lt1u1")]
 
+[node name="Entities" parent="." index="0" groups=["entities_parent"]]
+
 [node name="Map" parent="." index="1" instance=ExtResource("2_j0k7q")]
