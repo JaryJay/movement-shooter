@@ -17,9 +17,12 @@ var trigger_held: = false
 @onready var ammo: = ammo_capacity
 @onready var fire_cooldown: = fire_cooldown_time
 @onready var muzzle_flash_source: = $Pivot/MuzzleFlashSource
+@onready var audio_stream_player: = $Pivot/AudioStreamPlayer3D
 
 func _ready() -> void:
 	state_machine.initialize()
+	if locally_controlled:
+		audio_stream_player.panning_strength = 0
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_state(delta)
@@ -28,8 +31,8 @@ func shoot_bullet() -> void:
 	if bullet_type == BulletType.HITSCAN:
 		animation_player.stop(true)
 		animation_player.play("shoot", 0.01)
-		print("Shoot")
 		var muzzle_flash: = muzzle_flash_scene.instantiate()
 		muzzle_flash_source.add_child(muzzle_flash)
+		audio_stream_player.play()
 	else:
 		pass

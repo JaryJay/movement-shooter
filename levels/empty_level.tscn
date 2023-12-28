@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxre5xk317ipr"]
+
+[ext_resource type="Script" path="res://levels/level.gd" id="1_s60sv"]
+
+[node name="EmptyLevel" type="Node3D"]
+script = ExtResource("1_s60sv")
+
+[node name="Entities" type="Node3D" parent="."]

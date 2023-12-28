@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxdbon8jsalx1"]
+
+[ext_resource type="PackedScene" uid="uid://b4nbyjnuwl36x" path="res://assets/kenney_blaster-kit/Models/foamBulletA-low.glb" id="1_jx0lx"]
+[ext_resource type="Script" path="res://guns/bullet_1.gd" id="1_lfl7q"]
+
+[node name="Bullet1" type="Node3D"]
+script = ExtResource("1_lfl7q")
+
+[node name="foamBulletA-low2" parent="." instance=ExtResource("1_jx0lx")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25)
+target_position = Vector3(0, 0, -0.27)
+collision_mask = 10
+collide_with_areas = true

@@ -15,7 +15,7 @@ extends CharacterBody3D
 @export_range(0.01, 100) var friction: float
 @export_range(0.01, 100) var air_resistance: float
 
-@export_range(0.01, 10) var mouse_sensitivity: = .2
+@export_range(0.01, 10) var mouse_sensitivity: = .15
 
 var local_direction: = Vector3.ZERO
 var direction: = Vector3.ZERO
@@ -29,19 +29,18 @@ func _process(_delta: float) -> void:
 	local_direction = Vector3(raw_input.x, 0, raw_input.y)
 	direction = transform.basis * local_direction
 
-func _physics_process(delta: float):
-	var previous_direction: = direction
-	
+func update(delta: float, frame: int) -> void:
+	print("updating on frame %d" % frame)
 	var acceleration: = direction
 	if not is_on_floor():
 		acceleration *= air_acceleration_speed
 		acceleration.y = -gravity
 		acceleration += -velocity * air_resistance
 	else:
-		if local_direction.z < -sqrt(2)/2 and Input.is_action_pressed("sprint"):
-			acceleration *= sprinting_acceleration
-		elif Input.is_action_pressed("crouch"):
+		if Input.is_action_pressed("crouch"):
 			acceleration *= crouching_acceleration
+		elif local_direction.z < -sqrt(2)/2 and Input.is_action_pressed("sprint"):
+			acceleration *= sprinting_acceleration
 		else:
 			acceleration *= walking_acceleration
 		
