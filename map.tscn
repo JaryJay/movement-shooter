@@ -111,15 +111,16 @@ shadow_enabled = true
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="Enemy1" parent="Enemies" instance=ExtResource("3_perb4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -0.5)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.5, 0, -0.5)
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("3_perb4")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 2.25, 0, 0)
 
 [node name="Enemy3" parent="Enemies" instance=ExtResource("3_perb4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -10)
 
 [node name="Enemy4" parent="Enemies" instance=ExtResource("3_perb4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -10)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 0, -10)
 
 [node name="Enemy5" parent="Enemies" instance=ExtResource("3_perb4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -6.5)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 0, -6.5)

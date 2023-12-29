@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://entities/player_character_2.gd" id="1_c3god"]
 [ext_resource type="PackedScene" uid="uid://b5h6ttqnvx3xn" path="res://guns/gun_1.tscn" id="3_ymcra"]
 [ext_resource type="Script" path="res://components/health_component.gd" id="4_s5hrd"]
-[ext_resource type="Script" path="res://components/hitbox_component.gd" id="5_3hslr"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="5_3hslr"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_tspmu"]
 height = 1.7
@@ -84,8 +84,9 @@ current = true
 
 [node name="Node3D" type="Node3D" parent="Head"]
 
-[node name="Gun1" parent="Head/Node3D" instance=ExtResource("3_ymcra")]
+[node name="Gun1" parent="Head/Node3D" node_paths=PackedStringArray("bullet_source") instance=ExtResource("3_ymcra")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45592, -0.370564, -0.660804)
+bullet_source = NodePath("../..")
 locally_controlled = true
 
 [node name="LurchTimer" type="Timer" parent="."]
@@ -96,13 +97,13 @@ one_shot = true
 script = ExtResource("4_s5hrd")
 max_health = 100
 
-[node name="HitboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("5_3hslr")
 health_component = NodePath("../HealthComponent")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("CapsuleShape3D_ca31e")
 

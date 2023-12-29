@@ -18,6 +18,7 @@ color_ramp = SubResource("GradientTexture1D_pcxv4")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kprj"]
 transparency = 1
+blend_mode = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("3_wxfnb")
@@ -29,7 +30,7 @@ particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_lu4b3"]
 material = SubResource("StandardMaterial3D_6kprj")
-size = Vector2(0.1, 0.1)
+size = Vector2(0.05, 0.05)
 
 [node name="Bullet1" type="Node3D" groups=["bullets"]]
 script = ExtResource("1_lfl7q")
@@ -39,7 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25)
-target_position = Vector3(0, 0, -0.27)
+target_position = Vector3(0, 0, -0.5)
 collision_mask = 40
 collide_with_areas = true
 
@@ -49,9 +50,9 @@ autostart = true
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0349969)
-lifetime = 0.1
-preprocess = 0.1
-explosiveness = 0.37
+amount = 128
+lifetime = 0.5
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_wxnma")
 draw_pass_1 = SubResource("QuadMesh_lu4b3")
 

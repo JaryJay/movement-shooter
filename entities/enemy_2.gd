@@ -8,7 +8,6 @@ extends Node3D
 func _ready() -> void:
 	animation_player.play("armed-idle")
 
-
 func update(_delta: float, _frame: int) -> void:
 	ticks += 1
 	if ticks == 1000:

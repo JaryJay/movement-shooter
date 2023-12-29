@@ -1,9 +1,10 @@
 @tool
-class_name HitboxComponent extends Area3D
+class_name HurtboxComponent extends Area3D
 
 @export var health_component: HealthComponent
 
 func _enter_tree() -> void:
+	if not Engine.is_editor_hint(): return
 	if collision_layer == 1 and collision_mask == 1:
 		collision_layer = 0
 		collision_mask = 0

@@ -83,7 +83,7 @@ _data = {
 script = ExtResource("1_nhqba")
 fire_cooldown_time = 0.12
 ammo_capacity = 200
-damage = 30
+damage = 50
 bullet_type = 1
 muzzle_flash_scene = ExtResource("2_bp76f")
 bullet_scene = ExtResource("3_q3wa6")
@@ -97,9 +97,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 [node name="blasterA2" parent="Pivot/Model" instance=ExtResource("1_t2j4s")]
 
 [node name="MuzzleFlashSource" type="Marker3D" parent="Pivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.4)
-
-[node name="BulletSource" type="Marker3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.4)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Pivot"]

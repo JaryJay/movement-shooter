@@ -1,5 +1,6 @@
 class_name Gun1 extends Node3D
 
+@export var bullet_source: Node3D
 @export var locally_controlled: = false
 
 @export_range(0.01, 10) var fire_cooldown_time: float
@@ -22,6 +23,8 @@ var trigger_held: = false
 @onready var audio_stream_player: = $Pivot/AudioStreamPlayer3D
 
 func _ready() -> void:
+	if not bullet_source:
+		printerr("gun_1.gd: You forgot to set the bullet source.")
 	state_machine.initialize()
 	if locally_controlled:
 		audio_stream_player.panning_strength = 0
@@ -39,7 +42,7 @@ func shoot_bullet() -> void:
 		
 		var bullet: Node3D = bullet_scene.instantiate()
 		bullet.damage = damage
-		bullet.global_transform = $Pivot/BulletSource.global_transform
+		bullet.global_transform = bullet_source.global_transform
 		get_tree().get_first_node_in_group("entities_parent").add_child(bullet)
 	else:
 		pass
