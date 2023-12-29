@@ -88,3 +88,8 @@ func _add_input(input: ClientInput) -> void:
 func _handle_input(input: ClientInput) -> void:
 	if input.is_empty: return
 	pass
+
+func _on_character_2_health_depleted(source):
+	print("Bro you're bad")
+	$Entities/Character2/Head/Camera3D.reparent(self, true)
+	$Entities/Character2.queue_free()

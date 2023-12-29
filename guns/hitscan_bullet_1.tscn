@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvobgnbb4eur5"]
+
+[ext_resource type="Script" path="res://guns/hitscan_bullet_1.gd" id="1_e6otb"]
+[ext_resource type="PackedScene" uid="uid://de03aqvfdlika" path="res://guns/bullet_trail.tscn" id="2_wgtgb"]
+
+[node name="HitscanBullet1" type="Node3D" groups=["bullets"]]
+script = ExtResource("1_e6otb")
+bullet_trail_scene = ExtResource("2_wgtgb")
+max_range = 500
+collision_mask = 40

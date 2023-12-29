@@ -91,7 +91,7 @@ shape = SubResource("CylinderShape3D_rce4t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44076, 0)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="."]
-transform = Transform3D(-1.64015e-08, 0.01, 1.31905e-08, 6.32806e-09, 1.2967e-08, -0.01, -0.01, -1.52545e-08, -6.50083e-09, 0.73783, 1.43565, 0.0617131)
+transform = Transform3D(1.55273e-06, -1, -1.31905e-06, 1, 1.43803e-06, 6.50083e-07, -6.32806e-07, -1.2967e-06, 1, -73.783, -6.17132, -143.565)
 bone_name = "mixamorig_RightHand"
 bone_idx = 34
 use_external_skeleton = true

@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+signal health_depleted(source)
+
 @onready var head: = $Head
 
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -82,3 +84,6 @@ func handle_lurch() -> void:
 
 func is_in_air() -> bool:
 	return not is_on_floor() # and not is_on_wall()
+
+func _on_health_component_health_depleted(source):
+	health_depleted.emit(source)

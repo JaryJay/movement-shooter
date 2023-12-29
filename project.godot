@@ -82,7 +82,7 @@ reload={
 3d_physics/layer_1="units"
 3d_physics/layer_2="enemy_units"
 3d_physics/layer_4="terrain"
-3d_physics/layer_6="hitbox"
+3d_physics/layer_6="hurtbox"
 
 [physics]
 

@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://de03aqvfdlika"]
+
+[ext_resource type="Script" path="res://guns/bullet_trail.gd" id="1_g4yp5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnfcv"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.576471, 0.576471, 0.576471, 0.14902)
+proximity_fade_enabled = true
+distance_fade_mode = 1
+distance_fade_min_distance = 0.5
+distance_fade_max_distance = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l4pvp"]
+material = SubResource("StandardMaterial3D_nnfcv")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 1.0
+radial_segments = 8
+rings = 1
+cap_bottom = false
+
+[node name="BulletTrail" type="Node3D"]
+script = ExtResource("1_g4yp5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.5)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_l4pvp")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="queue_free"]

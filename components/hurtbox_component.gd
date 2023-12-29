@@ -2,6 +2,7 @@
 class_name HurtboxComponent extends Area3D
 
 @export var health_component: HealthComponent
+@export_range(0, 20) var damage_multiplier: float = 1.0
 
 func _enter_tree() -> void:
 	if not Engine.is_editor_hint(): return
@@ -12,6 +13,7 @@ func _enter_tree() -> void:
 
 func take_damage(damage: int, source: int) -> void:
 	if health_component:
-		health_component.change_health(health_component.health - damage, source)
+		var new_health: = health_component.health - damage * damage_multiplier
+		health_component.change_health(new_health, source)
 	else:
 		printerr("No health component attached.")

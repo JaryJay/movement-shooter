@@ -84,10 +84,11 @@ current = true
 
 [node name="Node3D" type="Node3D" parent="Head"]
 
-[node name="Gun1" parent="Head/Node3D" node_paths=PackedStringArray("bullet_source") instance=ExtResource("3_ymcra")]
+[node name="Gun1" parent="Head/Node3D" node_paths=PackedStringArray("bullet_source", "excluded_colliders") instance=ExtResource("3_ymcra")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45592, -0.370564, -0.660804)
 bullet_source = NodePath("../..")
 locally_controlled = true
+excluded_colliders = [NodePath("../../../HurtboxComponent")]
 
 [node name="LurchTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -108,5 +109,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("CapsuleShape3D_ca31e")
 
 [connection signal="timeout" from="LurchTimer" to="." method="_on_lurch_timer_timeout"]
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]
 
 [editable path="Model"]

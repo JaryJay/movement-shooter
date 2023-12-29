@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://xeofuubmskrr"]
+[gd_scene load_steps=6 format=3 uid="uid://xeofuubmskrr"]
 
 [ext_resource type="Material" uid="uid://iclctana4bak" path="res://materials/prototype_material.tres" id="2_6xs8d"]
-[ext_resource type="PackedScene" uid="uid://clqri155eq18w" path="res://entities/player_character_2.tscn" id="2_uprx8"]
-[ext_resource type="PackedScene" uid="uid://fp2gwxfytgw2" path="res://entities/enemy_2.tscn" id="3_perb4"]
+[ext_resource type="PackedScene" uid="uid://dyme27he17o1d" path="res://entities/enemy_3.tscn" id="3_4gl70"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rex7s"]
 
@@ -21,11 +20,6 @@ glow_hdr_threshold = 0.05
 glow_hdr_scale = 1.4
 
 [node name="Map" type="Node3D"]
-
-[node name="Character2" parent="." instance=ExtResource("2_uprx8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.938385, 0.189998, 3.5)
-air_acceleration_speed = 2.0
-jump_velocity = 5.0
 
 [node name="Building" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
@@ -110,17 +104,23 @@ shadow_enabled = true
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Enemy1" parent="Enemies" instance=ExtResource("3_perb4")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.5, 0, -0.5)
+[node name="Enemy1" parent="Enemies" instance=ExtResource("3_4gl70")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.75, 0, -9.25)
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource("3_perb4")]
-transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 2.25, 0, 0)
+[node name="Enemy2" parent="Enemies" instance=ExtResource("3_4gl70")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.25, 0, -9.25)
 
-[node name="Enemy3" parent="Enemies" instance=ExtResource("3_perb4")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -10)
+[node name="Enemy3" parent="Enemies" instance=ExtResource("3_4gl70")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.75, 0, -6.5)
 
-[node name="Enemy4" parent="Enemies" instance=ExtResource("3_perb4")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 0, -10)
+[node name="Enemy4" parent="Enemies" instance=ExtResource("3_4gl70")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.5, 0, -7.25)
 
-[node name="Enemy5" parent="Enemies" instance=ExtResource("3_perb4")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 0, -6.5)
+[node name="Enemy5" parent="Enemies" instance=ExtResource("3_4gl70")]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 1, 0, 10.75)
+
+[node name="Enemy6" parent="Enemies" instance=ExtResource("3_4gl70")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2.25, 0, -1.5)
+
+[node name="Enemy7" parent="Enemies" instance=ExtResource("3_4gl70")]
+transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 2.25, 0, 1)

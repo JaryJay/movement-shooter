@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ba2hh541rxw1g" path="res://assets/kenney_blaster-kit/Models/blasterA.glb" id="1_t2j4s"]
 [ext_resource type="PackedScene" uid="uid://dgce0m5m40wyy" path="res://guns/gun_1_muzzle_flash.tscn" id="2_bp76f"]
 [ext_resource type="Script" path="res://guns/default_state.gd" id="3_0bcul"]
-[ext_resource type="PackedScene" uid="uid://cxdbon8jsalx1" path="res://guns/bullet_1.tscn" id="3_q3wa6"]
+[ext_resource type="PackedScene" uid="uid://cvobgnbb4eur5" path="res://guns/hitscan_bullet_1.tscn" id="3_ajsdp"]
 [ext_resource type="Script" path="res://guns/state_machine.gd" id="3_yjoh2"]
 [ext_resource type="AudioStream" uid="uid://ddfmems5ws0t8" path="res://assets/sfx/gun_1_shoot.wav" id="4_1du4p"]
 [ext_resource type="Script" path="res://guns/state.gd" id="5_qopi3"]
@@ -84,9 +84,8 @@ script = ExtResource("1_nhqba")
 fire_cooldown_time = 0.12
 ammo_capacity = 200
 damage = 50
-bullet_type = 1
 muzzle_flash_scene = ExtResource("2_bp76f")
-bullet_scene = ExtResource("3_q3wa6")
+bullet_scene = ExtResource("3_ajsdp")
 
 [node name="Pivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.999995, -0.00306451, 0, 0.00306451, 0.999995, 0, 0, 0.00263375)
@@ -128,6 +127,7 @@ libraries = {
 }
 
 [node name="Crosshair" type="TextureRect" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
