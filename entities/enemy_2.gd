@@ -14,5 +14,9 @@ func update(_delta: float, _frame: int) -> void:
 		gun.shoot_bullet()
 		ticks = randi_range(0, 20)
 
+func _on_health_component_health_changed(new: int, old: int, _source):
+	if new < old:
+		animation_player.play("armed-take-damage")
+
 func _on_health_component_health_depleted(source):
 	queue_free()

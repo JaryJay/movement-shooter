@@ -1,15 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://b5h6ttqnvx3xn"]
+[gd_scene load_steps=17 format=3 uid="uid://b5h6ttqnvx3xn"]
 
 [ext_resource type="Script" path="res://guns/gun_1.gd" id="1_nhqba"]
 [ext_resource type="PackedScene" uid="uid://ba2hh541rxw1g" path="res://assets/kenney_blaster-kit/Models/blasterA.glb" id="1_t2j4s"]
 [ext_resource type="PackedScene" uid="uid://dgce0m5m40wyy" path="res://guns/gun_1_muzzle_flash.tscn" id="2_bp76f"]
-[ext_resource type="Script" path="res://guns/default_state.gd" id="3_0bcul"]
 [ext_resource type="PackedScene" uid="uid://cvobgnbb4eur5" path="res://guns/hitscan_bullet_1.tscn" id="3_ajsdp"]
-[ext_resource type="Script" path="res://guns/state_machine.gd" id="3_yjoh2"]
 [ext_resource type="AudioStream" uid="uid://ddfmems5ws0t8" path="res://assets/sfx/gun_1_shoot.wav" id="4_1du4p"]
-[ext_resource type="Script" path="res://guns/state.gd" id="5_qopi3"]
-[ext_resource type="Script" path="res://guns/shooting_state.gd" id="5_qqekk"]
+[ext_resource type="Script" path="res://guns/states/state_machine.gd" id="6_7pw2d"]
+[ext_resource type="Script" path="res://guns/states/default_state.gd" id="7_5ewaw"]
 [ext_resource type="Texture2D" uid="uid://cugp8usmy6b6b" path="res://assets/textures/crosshairs/crosshair102.png" id="7_t8pm1"]
+[ext_resource type="Script" path="res://guns/states/reloading_state.gd" id="8_b5h46"]
+[ext_resource type="Script" path="res://guns/states/state.gd" id="8_qasw1"]
+[ext_resource type="Script" path="res://guns/states/shooting_state.gd" id="9_jldb6"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8bjbw"]
 random_pitch = 1.01
@@ -22,7 +23,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/Model/blasterA2:rotation")
+tracks/0/path = NodePath("Pivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -34,7 +35,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/Model/blasterA2:position")
+tracks/1/path = NodePath("Pivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -42,6 +43,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e25sm"]
+resource_name = "reload"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.53033, 0.53033), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.785398, 0, 0), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_vk6ut"]
@@ -76,19 +104,19 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_byjvs"]
 _data = {
 "RESET": SubResource("Animation_i0ffg"),
+"reload": SubResource("Animation_e25sm"),
 "shoot": SubResource("Animation_vk6ut")
 }
 
 [node name="Gun1" type="Node3D"]
 script = ExtResource("1_nhqba")
 fire_cooldown_time = 0.12
-ammo_capacity = 200
+ammo_capacity = 24
 damage = 50
 muzzle_flash_scene = ExtResource("2_bp76f")
 bullet_scene = ExtResource("3_ajsdp")
 
 [node name="Pivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.999995, -0.00306451, 0, 0.00306451, 0.999995, 0, 0, 0.00263375)
 
 [node name="Model" type="Node3D" parent="Pivot"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -103,23 +131,25 @@ stream = SubResource("AudioStreamRandomizer_8bjbw")
 max_polyphony = 4
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("gun", "default_state")]
-script = ExtResource("3_yjoh2")
+script = ExtResource("6_7pw2d")
 gun = NodePath("..")
 default_state = NodePath("DefaultState")
 
-[node name="DefaultState" type="Node" parent="StateMachine" node_paths=PackedStringArray("shooting_state")]
-script = ExtResource("3_0bcul")
+[node name="DefaultState" type="Node" parent="StateMachine" node_paths=PackedStringArray("shooting_state", "reloading_state")]
+script = ExtResource("7_5ewaw")
 shooting_state = NodePath("../ShootingState")
+reloading_state = NodePath("../ReloadingState")
 
-[node name="ReloadingState" type="Node" parent="StateMachine"]
-script = ExtResource("5_qopi3")
+[node name="ReloadingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("default_state")]
+script = ExtResource("8_b5h46")
+default_state = NodePath("../DefaultState")
 
 [node name="ShootingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("default_state")]
-script = ExtResource("5_qqekk")
+script = ExtResource("9_jldb6")
 default_state = NodePath("../DefaultState")
 
 [node name="ADSFiringState" type="Node" parent="StateMachine"]
-script = ExtResource("5_qopi3")
+script = ExtResource("8_qasw1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

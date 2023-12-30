@@ -28,8 +28,8 @@ func update(delta: float, _frame: int = 0):
 	spawn_trail(result.position)
 	if collider is HurtboxComponent:
 		collider.take_damage(damage, get_instance_id())
-		print("Dealt damage to %s" % collider)
-		print(collider.get_parent())
+		#print("Dealt damage to %s" % collider)
+		#print(collider.get_parent())
 	
 	queue_free()
 

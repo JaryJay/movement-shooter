@@ -4,7 +4,6 @@ class_name ShootingState extends State
 
 func process(gun: Gun1, delta: float) -> void:
 	if gun.ammo <= 0:
-		print("no ammo")
 		gun.state_machine.state = default_state
 	
 	if Input.is_action_pressed("shoot"):

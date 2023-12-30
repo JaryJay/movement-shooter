@@ -90,6 +90,5 @@ func _handle_input(input: ClientInput) -> void:
 	pass
 
 func _on_character_2_health_depleted(source):
-	print("Bro you're bad")
 	$Entities/Character2/Head/Camera3D.reparent(self, true)
 	$Entities/Character2.queue_free()
