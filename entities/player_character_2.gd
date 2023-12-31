@@ -6,6 +6,8 @@ signal health_depleted(source)
 
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var lurch_timer: = $LurchTimer
+@onready var object_interact_ray_cast: RayCast3D = $Head/ObjectInteractRayCast
+@onready var gun: Gun1 = $Head/Node3D/Gun1
 
 @export_range(0.1, 500) var walking_acceleration: float = 5
 @export_range(0.1, 500) var sprinting_acceleration: float = 5
@@ -54,6 +56,8 @@ func update(delta: float, frame: int) -> void:
 	velocity += acceleration * delta
 	
 	move_and_slide()
+	
+	check_object_interactions()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -82,8 +86,30 @@ func handle_lurch() -> void:
 		new_horizontal_velocity = new_horizontal_velocity.normalized() * adjusted_magnitude
 	velocity = new_horizontal_velocity + Vector3(0, vertical_velocity, 0)
 
+func check_object_interactions() -> void:
+	if Input.is_action_just_pressed("interact") and object_interact_ray_cast.is_colliding():
+		var object: Node3D = object_interact_ray_cast.get_collider()
+		if not object.is_in_group("interactable"): return
+		
+		if object is Gun1:
+			drop_gun()
+			object.reparent($Head/Node3D)
+			object.transform = $Head/Node3D/Marker3D.transform
+			object.controlled = true
+			object.locally_controlled = true
+			object.bullet_source = $Head
+			object.excluded_colliders = gun.excluded_colliders
+			print("swapped guns")
+			gun = object
+
 func is_in_air() -> bool:
 	return not is_on_floor() # and not is_on_wall()
 
 func _on_health_component_health_depleted(source):
 	health_depleted.emit(source)
+
+func drop_gun() -> void:
+	gun.reparent(get_parent_node_3d(), true)
+	gun.controlled = false
+	gun.locally_controlled = false
+	gun.apply_central_impulse(velocity * 2)

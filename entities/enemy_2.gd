@@ -1,22 +1,29 @@
-extends Node3D
+extends CharacterBody3D
 
 @onready var animation_player: = $Model/AnimationPlayer
 @onready var gun: = $BoneAttachment3D/Gun1
+@onready var state_machine: StateMachine = $StateMachine
 
-@onready var ticks: = randi_range(0, 999)
+@onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
-	animation_player.play("armed-idle")
+	state_machine.initialize()
 
-func update(_delta: float, _frame: int) -> void:
-	ticks += 1
-	if ticks == 1000:
-		gun.shoot_bullet()
-		ticks = randi_range(0, 20)
+func update(delta: float, _frame: int) -> void:
+	state_machine.process_state(delta)
+	
+	var acceleration: Vector3 = Vector3.ZERO
+	if not is_on_floor():
+		acceleration.y = -gravity
+	velocity += acceleration * delta
+	move_and_slide()
 
 func _on_health_component_health_changed(new: int, old: int, _source):
-	if new < old:
+	if is_alive() and new < old:
 		animation_player.play("armed-take-damage")
 
 func _on_health_component_health_depleted(source):
-	queue_free()
+	state_machine.state = $StateMachine/AiDyingState
+
+func is_alive() -> bool:
+	return not state_machine.state is AiDyingState

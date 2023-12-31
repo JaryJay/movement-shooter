@@ -1,6 +1,6 @@
 class_name StateMachine extends Node
 
-@export var gun: Gun1
+@export var object: Node
 @export var default_state: State
 
 var state: State = default_state : set = _set_state
@@ -13,11 +13,11 @@ func initialize() -> void:
 			printerr("StateMachine Error: Child %s is not a state." % child.name)
 
 func process_state(delta: float) -> void:
-	state.process(gun, delta)
+	state.process(object, delta)
 
 func _set_state(value: State) -> void:
 	if state:
-		state._exit_state(gun)
+		state._exit_state(object)
 	
 	if not value:
 		printerr("Hey! You're setting the state to null. That's not right")
@@ -26,4 +26,4 @@ func _set_state(value: State) -> void:
 	
 	if not state == value:
 		state = value
-		state._enter_state(gun)
+		state._enter_state(object)

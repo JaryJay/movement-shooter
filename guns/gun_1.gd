@@ -1,4 +1,4 @@
-class_name Gun1 extends Node3D
+class_name Gun1 extends RigidBody3D
 
 @export var bullet_source: Node3D
 @export var locally_controlled: = false
@@ -19,6 +19,8 @@ var trigger_held: = false
 @onready var fire_cooldown: = fire_cooldown_time
 @onready var muzzle_flash_source: = $Pivot/MuzzleFlashSource
 @onready var audio_stream_player: = $Pivot/AudioStreamPlayer3D
+
+var controlled: = true : set = _set_controlled
 
 func _ready() -> void:
 	if not bullet_source:
@@ -43,3 +45,11 @@ func shoot_bullet() -> void:
 	bullet.global_transform = bullet_source.global_transform
 	bullet.excluded_colliders = excluded_colliders
 	get_tree().get_first_node_in_group("entities_parent").add_child(bullet)
+
+func _set_controlled(value: bool) -> void:
+	controlled = value
+	freeze = controlled
+	if controlled:
+		remove_from_group("interactable")
+	else:
+		add_to_group("interactable")

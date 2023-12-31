@@ -82,13 +82,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44076, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
 
+[node name="ObjectInteractRayCast" type="RayCast3D" parent="Head"]
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 264
+
 [node name="Node3D" type="Node3D" parent="Head"]
 
 [node name="Gun1" parent="Head/Node3D" node_paths=PackedStringArray("bullet_source", "excluded_colliders") instance=ExtResource("3_ymcra")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45592, -0.370564, -0.660804)
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.461, -0.321, -0.761)
 bullet_source = NodePath("../..")
 locally_controlled = true
 excluded_colliders = [NodePath("../../../HurtboxComponent")]
+
+[node name="Marker3D" type="Marker3D" parent="Head/Node3D"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.461, -0.321, -0.761)
 
 [node name="LurchTimer" type="Timer" parent="."]
 wait_time = 0.5
