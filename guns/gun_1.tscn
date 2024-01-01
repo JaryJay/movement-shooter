@@ -14,13 +14,13 @@
 [ext_resource type="Script" path="res://common/state_machine/state.gd" id="10_yn22u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n86mp"]
-size = Vector3(0.1, 0.25, 0.725)
+size = Vector3(0.06, 0.125, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gqfwj"]
-size = Vector3(0.05, 0.235, 0.11)
+size = Vector3(0.04, 0.115, 0.065)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e0kjv"]
-size = Vector3(0.05, 0.22, 0.1)
+size = Vector3(0.04, 0.185, 0.06)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a57he"]
 render_priority = 0
@@ -136,21 +136,21 @@ muzzle_flash_scene = ExtResource("2_bp76f")
 bullet_scene = ExtResource("3_ajsdp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0375, 0)
 shape = SubResource("BoxShape3D_n86mp")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0925, -0.2025)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0675, -0.1225)
 shape = SubResource("BoxShape3D_gqfwj")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -0.0800792, 0.164877)
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -0.0304083, 0.0894511)
 shape = SubResource("BoxShape3D_e0kjv")
 
 [node name="Pivot" type="Node3D" parent="."]
 
 [node name="Model" type="Node3D" parent="Pivot"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, 0, 0, 0)
 
 [node name="blasterA2" parent="Pivot/Model" instance=ExtResource("1_t2j4s")]
 
@@ -158,7 +158,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 material_overlay = SubResource("ShaderMaterial_a57he")
 
 [node name="MuzzleFlashSource" type="Marker3D" parent="Pivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, -0.245)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Pivot"]
 stream = SubResource("AudioStreamRandomizer_8bjbw")

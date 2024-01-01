@@ -58,6 +58,8 @@ func update(delta: float, frame: int) -> void:
 	move_and_slide()
 	
 	check_object_interactions()
+	if gun and Input.is_action_just_pressed("throw"):
+		handle_throw()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -92,15 +94,24 @@ func check_object_interactions() -> void:
 		if not object.is_in_group("interactable"): return
 		
 		if object is Gun1:
-			drop_gun()
 			object.reparent($Head/Node3D)
 			object.transform = $Head/Node3D/Marker3D.transform
 			object.controlled = true
 			object.locally_controlled = true
 			object.bullet_source = $Head
-			object.excluded_colliders = gun.excluded_colliders
-			print("swapped guns")
+			var excluded_colliders: Array[CollisionObject3D] = [$HurtboxComponent]
+			object.excluded_colliders = excluded_colliders # TODO
+			if gun:
+				drop_gun()
 			gun = object
+
+func handle_throw() -> void:
+	var vel: = Vector3(0, 1, -15)
+	gun.global_position = $Head.global_position
+	gun.global_rotation = $Head.global_rotation
+	gun.position += Vector3.FORWARD * 0.6
+	gun.apply_torque_impulse(Vector3(1000, 0, 0))
+	drop_gun($Head.global_transform.basis * vel)
 
 func is_in_air() -> bool:
 	return not is_on_floor() # and not is_on_wall()
@@ -108,8 +119,10 @@ func is_in_air() -> bool:
 func _on_health_component_health_depleted(source):
 	health_depleted.emit(source)
 
-func drop_gun() -> void:
+func drop_gun(gun_velocity: Vector3 = Vector3.ZERO) -> void:
 	gun.reparent(get_parent_node_3d(), true)
 	gun.controlled = false
 	gun.locally_controlled = false
-	gun.apply_central_impulse(velocity * 2)
+	if not gun_velocity.is_zero_approx():
+		gun.apply_central_impulse(gun_velocity)
+	gun = null
