@@ -92,6 +92,7 @@ throw={
 3d_physics/layer_1="units"
 3d_physics/layer_2="enemy_units"
 3d_physics/layer_4="terrain"
+3d_physics/layer_5="translucent_terrain"
 3d_physics/layer_6="hurtbox"
 3d_physics/layer_8="guns"
 3d_physics/layer_9="interactable"

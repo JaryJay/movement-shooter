@@ -30,7 +30,6 @@ func update(delta: float, _frame: int = 0):
 		collider.take_damage(damage, get_instance_id())
 		#print("Dealt damage to %s" % collider)
 		#print(collider.get_parent())
-	
 	queue_free()
 
 func spawn_trail(to: Vector3) -> void:

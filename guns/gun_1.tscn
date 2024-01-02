@@ -126,7 +126,7 @@ _data = {
 
 [node name="Gun1" type="RigidBody3D"]
 collision_layer = 384
-collision_mask = 137
+collision_mask = 153
 freeze = true
 script = ExtResource("1_nhqba")
 fire_cooldown_time = 0.12

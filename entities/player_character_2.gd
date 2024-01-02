@@ -123,6 +123,7 @@ func drop_gun(gun_velocity: Vector3 = Vector3.ZERO) -> void:
 	gun.reparent(get_parent_node_3d(), true)
 	gun.controlled = false
 	gun.locally_controlled = false
+	gun.apply_central_impulse(velocity)
 	if not gun_velocity.is_zero_approx():
 		gun.apply_central_impulse(gun_velocity)
 	gun = null

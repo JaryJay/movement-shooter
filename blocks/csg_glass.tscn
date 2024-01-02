@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bt5x2q5scf4r2"]
+
+[ext_resource type="Script" path="res://blocks/csg_glass.gd" id="1_l6xbk"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="2_lhbjb"]
+[ext_resource type="Script" path="res://components/health_component.gd" id="3_avbp7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7r6qd"]
+transparency = 1
+albedo_color = Color(0.494118, 0.831373, 1, 0.254902)
+metallic = 1.0
+metallic_specular = 0.0
+roughness = 0.03
+refraction_enabled = true
+refraction_scale = 0.01
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gh6gr"]
+size = Vector3(1, 1, 0.03)
+
+[node name="CSGGlass" type="CSGBox3D" groups=["destroyable"]]
+use_collision = true
+collision_layer = 16
+collision_mask = 0
+size = Vector3(1, 1, 0.02)
+material = SubResource("StandardMaterial3D_7r6qd")
+script = ExtResource("1_l6xbk")
+
+[node name="HurtboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("2_lhbjb")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
+shape = SubResource("BoxShape3D_gh6gr")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_avbp7")
+max_health = 80
+
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]
