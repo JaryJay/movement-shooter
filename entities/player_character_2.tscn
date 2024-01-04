@@ -18,12 +18,16 @@ height = 1.7
 collision_mask = 27
 script = ExtResource("1_c3god")
 walking_acceleration = 30.0
-sprinting_acceleration = 48.0
+sprinting_acceleration = 42.0
 crouching_acceleration = 18.0
-air_acceleration_speed = 9.0
+air_acceleration_speed = 7.0
 jump_velocity = 4.3
 lurch_velocity = 2.0
 friction = 7.0
+slide_boost_threshold_speed = 5.5
+stop_slide_threshold_speed = 3.0
+slide_boost_velocity = 10.0
+slide_friction = 1.0
 
 [node name="Model" parent="." instance=ExtResource("1_24ijj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -98,7 +102,13 @@ excluded_colliders = [NodePath("../../../HurtboxComponent")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461, -0.321, -0.761)
 
 [node name="LurchTimer" type="Timer" parent="."]
+process_callback = 0
 wait_time = 0.5
+one_shot = true
+
+[node name="SlideBoostCooldownTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.0
 one_shot = true
 
 [node name="HealthComponent" type="Node" parent="."]

@@ -2,10 +2,11 @@ extends CharacterBody3D
 
 signal health_depleted(source)
 
-@onready var head: = $Head
+@onready var head: Node3D = $Head
 
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-@onready var lurch_timer: = $LurchTimer
+@onready var lurch_timer: Timer = $LurchTimer
+@onready var slide_boost_cooldown_timer: Timer = $SlideBoostCooldownTimer
 @onready var object_interact_ray_cast: RayCast3D = $Head/ObjectInteractRayCast
 @onready var gun: Gun1 = $Head/Node3D/Gun1
 
@@ -21,8 +22,16 @@ signal health_depleted(source)
 
 @export_range(0.01, 10) var mouse_sensitivity: = .15
 
+@export_group("Sliding")
+@export_range(0.1, 100) var slide_boost_threshold_speed: float
+@export_range(0.1, 100) var stop_slide_threshold_speed: float
+@export_range(0.1, 500) var slide_boost_velocity: float
+@export_range(0.1, 100) var slide_friction: float
+
 var local_direction: = Vector3.ZERO
 var direction: = Vector3.ZERO
+var was_on_floor_last_frame: = true
+var is_sliding: = false
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -36,23 +45,49 @@ func _process(_delta: float) -> void:
 func update(delta: float, frame: int) -> void:
 	var acceleration: = direction
 	if not is_on_floor():
+		if was_on_floor_last_frame:
+			lurch_timer.start()
 		acceleration *= air_acceleration_speed
+		acceleration *= clampf(1 - direction.dot(velocity.normalized()), 0, 1)
 		acceleration.y = -gravity
 		acceleration += -velocity * air_resistance
 	else:
+		var current_friction: = friction
+		
 		if Input.is_action_pressed("crouch"):
-			acceleration *= crouching_acceleration
-		elif local_direction.z < -sqrt(2)/2 and Input.is_action_pressed("sprint"):
+			var speed: = velocity.length()
+			if is_sliding:
+				acceleration += -velocity * slide_friction
+				if speed < stop_slide_threshold_speed:
+					is_sliding = false
+			else:
+				var slide_available: = slide_boost_cooldown_timer.is_stopped()
+				if slide_available and speed >= slide_boost_threshold_speed:
+					print("Slid")
+					if speed < slide_boost_velocity:
+						velocity = velocity.normalized() * slide_boost_velocity
+					acceleration.x = 0
+					acceleration.y = 0
+					slide_boost_cooldown_timer.start()
+					acceleration += -velocity * slide_friction
+					is_sliding = true
+				else:
+					is_sliding = false
+					acceleration *= crouching_acceleration
+					acceleration += -velocity * friction
+		elif local_direction.z < -sqrt(2)/2 and true: #Input.is_action_pressed("sprint"):
+			is_sliding = false
 			acceleration *= sprinting_acceleration
+			acceleration += -velocity * friction
 		else:
 			acceleration *= walking_acceleration
-		
+			is_sliding = false
+			acceleration += -velocity * friction
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = jump_velocity
 			lurch_timer.start()
 		
 		#if acceleration.is_zero_approx():
-		acceleration += -velocity * friction
 	velocity += acceleration * delta
 	
 	move_and_slide()
@@ -60,6 +95,8 @@ func update(delta: float, frame: int) -> void:
 	check_object_interactions()
 	if gun and Input.is_action_just_pressed("throw"):
 		handle_throw()
+	
+	was_on_floor_last_frame = is_on_floor()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
