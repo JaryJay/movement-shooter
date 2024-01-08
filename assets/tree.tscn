@@ -1,0 +1,113 @@
+[gd_scene load_steps=20 format=3 uid="uid://dxct3lor34ndd"]
+
+[ext_resource type="PackedScene" uid="uid://dl4itkcsch5hx" path="res://assets/tree.blend" id="1_p0ela"]
+[ext_resource type="Texture2D" uid="uid://ddqywow645akh" path="res://assets/textures/foliage/sprite_0030.png" id="2_fw7ll"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_lfmmf"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="4_x3at3"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="5_esaru"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="6_46tq1"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="7_24ltd"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="8_ni25e"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="9_ulk54"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="10_g8usy"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="11_2sxn7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_clk1q"]
+albedo_color = Color(0.435294, 0.301961, 0.152941, 1)
+
+[sub_resource type="Resource" id="Resource_3np8k"]
+script = ExtResource("5_esaru")
+amount = 4096
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_jhf55"]
+script = ExtResource("6_46tq1")
+position = Vector3(0.6, 2, 0.6)
+rotation = Vector3(20, 360, 20)
+scale = Vector3(0.1, 0.1, 0.1)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_g68ec"]
+script = ExtResource("7_24ltd")
+iterations = 3
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+use_computeshader = true
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_idpqg"]
+script = ExtResource("8_ni25e")
+ray_direction = Vector3(0, -1, 0)
+ray_length = 8.0
+ray_offset = 1.0
+remove_points_on_miss = true
+align_with_collision_normal = true
+max_slope = 90.0
+collision_mask = 65536
+exclude_mask = 0
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_ral8b"]
+script = ExtResource("4_x3at3")
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_3np8k"), SubResource("Resource_jhf55"), SubResource("Resource_g68ec"), SubResource("Resource_idpqg")])
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q2ln2"]
+transparency = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.109804, 0.466667, 0.254902, 1)
+albedo_texture = ExtResource("2_fw7ll")
+roughness = 0.64
+backlight = Color(0.0941176, 0, 0.886275, 1)
+
+[sub_resource type="Resource" id="Resource_g8bsm"]
+script = ExtResource("11_2sxn7")
+radius = 6.20143
+
+[node name="Tree" type="Node3D"]
+
+[node name="unfinished_tree" parent="." instance=ExtResource("1_p0ela")]
+
+[node name="tree" parent="unfinished_tree" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_clk1q")
+
+[node name="StaticBody3D" parent="unfinished_tree/tree" index="0"]
+visible = false
+collision_layer = 65536
+collision_mask = 0
+
+[node name="ProtonScatter" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.75, 0)
+script = ExtResource("3_lfmmf")
+modifier_stack = SubResource("Resource_ral8b")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("9_ulk54")
+source_scale_multiplier = 2.0
+override_material = SubResource("StandardMaterial3D_q2ln2")
+path = "res://assets/leaf_mesh.blend"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, -2.5, 0)
+script = ExtResource("10_g8usy")
+shape = SubResource("Resource_g8bsm")
+
+[editable path="unfinished_tree"]

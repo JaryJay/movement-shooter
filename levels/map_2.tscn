@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv48n5s0xb3jy"]
+
+[ext_resource type="Material" uid="uid://iclctana4bak" path="res://materials/prototype_material.tres" id="1_172hv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rex7s"]
+
+[sub_resource type="Sky" id="Sky_ly88s"]
+sky_material = SubResource("ProceduralSkyMaterial_rex7s")
+
+[sub_resource type="Environment" id="Environment_uablm"]
+background_mode = 2
+sky = SubResource("Sky_ly88s")
+glow_enabled = true
+glow_levels/6 = 0.13
+glow_levels/7 = 0.25
+glow_intensity = 0.1
+glow_blend_mode = 0
+glow_hdr_threshold = 0.05
+glow_hdr_scale = 1.4
+
+[node name="Map" type="Node3D"]
+
+[node name="Building" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Ground" type="CSGCylinder3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+radius = 6.0
+height = 1.0
+sides = 16
+material = ExtResource("1_172hv")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_uablm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.29344, -0.719709, 0.629215, 0, 0.65819, 0.752852, -0.955978, -0.220917, 0.193139, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Enemies" type="Node3D" parent="."]

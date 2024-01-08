@@ -17,7 +17,11 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/mode=2
+window/size/mode=4
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/proton_scatter/plugin.cfg")
 
 [filesystem]
 
@@ -96,6 +100,7 @@ throw={
 3d_physics/layer_6="hurtbox"
 3d_physics/layer_8="guns"
 3d_physics/layer_9="interactable"
+3d_physics/layer_17="scatter_source"
 
 [physics]
 

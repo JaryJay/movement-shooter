@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://xeofuubmskrr"]
+[gd_scene load_steps=8 format=3 uid="uid://xeofuubmskrr"]
 
 [ext_resource type="Material" uid="uid://iclctana4bak" path="res://materials/prototype_material.tres" id="2_6xs8d"]
 [ext_resource type="PackedScene" uid="uid://bt5x2q5scf4r2" path="res://blocks/csg_glass.tscn" id="2_iqphx"]
 [ext_resource type="PackedScene" uid="uid://dyme27he17o1d" path="res://entities/enemy_3.tscn" id="3_4gl70"]
+[ext_resource type="PackedScene" uid="uid://dxct3lor34ndd" path="res://assets/tree.tscn" id="4_ve1e7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rex7s"]
 
@@ -172,3 +173,6 @@ transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 
 
 [node name="Enemy14" parent="Enemies" instance=ExtResource("3_4gl70")]
 transform = Transform3D(-0.866026, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866026, 2.25, 0, -14.5)
+
+[node name="Tree" parent="." instance=ExtResource("4_ve1e7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -2.66447, 13.1044)

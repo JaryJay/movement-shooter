@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cxre5xk317ipr" path="res://levels/empty_level.tscn" id="1_lt1u1"]
 [ext_resource type="PackedScene" uid="uid://clqri155eq18w" path="res://entities/player_character_2.tscn" id="2_afnmy"]
-[ext_resource type="PackedScene" uid="uid://xeofuubmskrr" path="res://map.tscn" id="2_j0k7q"]
+[ext_resource type="PackedScene" uid="uid://xeofuubmskrr" path="res://levels/map.tscn" id="2_j0k7q"]
 
 [node name="Level1" instance=ExtResource("1_lt1u1")]
 
